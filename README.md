@@ -5,6 +5,7 @@ filings via hermai, with vehicle Make mapped back to the actual operator (Waymo,
 
 **To access the website, visit https://crash-tracker.vercel.app/**
 
+
 ## Setup
 
 ```bash
@@ -14,13 +15,17 @@ cp .env.example .env
 npm start
 ```
 
+
 ## Tech Stack
 
 **Backend**
 
 Node.js — runtime
+
 Express — web server / routing
+
 dotenv — loads .env config into process.env
+
 Papaparse — CSV parsing
 
 **Data source**
@@ -34,13 +39,17 @@ Plain HTML/CSS/JavaScript
 **Data/config files**
 
 data/cityGeocode.json — static city → lat/lng lookup table
+
 lib/operatorMap.js — maps vehicle Operating/Reporting Entity to operator names (Waymo/Zoox)
+
 .env — holds HERMAI_API_KEY, HERMAI_SOURCE_SITE, HERMAI_SOURCE_ENDPOINT, CRON_SECRET
 
 **Hosting / infra**
 
 Vercel — hosting, serverless function deployment of the Express app, and Vercel Cron for the scheduled daily refresh (vercel.json)
+
 Git/GitHub — version control and the source Vercel deploys from
+
 
 **Project structure**
 
