@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrashTracker — California Robotaxi Crash Reports</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="mobileToggle" class="mobile-toggle">
+  <button class="mobile-toggle-btn active" data-view="list">List</button>
+  <button class="mobile-toggle-btn" data-view="map">Map</button>
+</div>
+
+<div id="sidebar">
+  <div class="brand">
+    <div class="brand-left">
+      <div class="brand-icon">🚕</div>
+      <div>
+        <div class="brand-title">CrashTracker</div>
+        <div class="brand-sub">CALIFORNIA · NHTSA SGO REPORTS</div>
+        <a href="https://hermai.ai" target="_blank" rel="noopener" class="powered-badge">POWERED BY HERMAI</a>
+      </div>
+    </div>
+    <div class="live-badge"><span class="live-dot"></span>AS FILED</div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>🔎</span>
+      <input id="searchInput" placeholder="Search by operator, city, report ID..." />
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" id="tabCrashes" data-tab="crashes">Crashes <span class="count" id="crashCount">0</span></div>
+    <div class="tab" id="tabLeaderboard" data-tab="leaderboard">Leaderboard</div>
+  </div>
+
+  <div id="crashesView">
+    <div class="list-header" id="listHeader">Loading…</div>
+    <div class="list" id="crashList"></div>
+  </div>
+
+  <div id="leaderboardView" class="hidden">
+    <div class="list-header">CRASHES BY OPERATOR</div>
+    <div id="leaderList"></div>
+  </div>
+
+  <div class="footer">
+    Reports are filed with NHTSA monthly, not real-time — this page updates when new filings post.
+    City and month/year are reported by NHTSA; exact street addresses and the specific day are redacted at the source.
+    Reported times are rounded, and street names inside narratives may appear as [XXX]. Map pins show approximate city
+    locations, not exact crash sites. Coverage shown here is <b>California</b> only.
+  </div>
+</div>
+
+<div id="map">
+  <div class="map-badge"><span id="mapCount">0</span><span> crashes on map (approx. locations)</span></div>
+  <div id="detailPanel" class="detail-panel hidden"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
