@@ -60,3 +60,7 @@ lib/geocode.js          City -> lat/lng lookup
 data/cityGeocode.json   Coordinate table, extend as needed
 public/                 Static frontend (index.html, style.css, app.js)
 ```
+
+
+## Author
+Krish Patel
