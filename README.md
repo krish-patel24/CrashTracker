@@ -45,11 +45,10 @@ Git/GitHub — version control and the source Vercel deploys from
 **Project structure**
 
 ```
-server.js              Express app + /api/crashes route
+server.js               Express app + /api/crashes route
 lib/fetchCrashes.js     hermai call, CSV parse, CA/2026 filter, caching
 lib/operatorMap.js      Make -> operator mapping (Jaguar/Zeekr -> Waymo, etc.)
 lib/geocode.js          City -> lat/lng lookup
 data/cityGeocode.json   Coordinate table, extend as needed
 public/                 Static frontend (index.html, style.css, app.js)
 ```
-
