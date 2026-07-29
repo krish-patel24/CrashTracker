@@ -18,7 +18,7 @@ npm start
 
 ## Tech Stack
 
-**Backend**
+**Backend:**
 
 Node.js — runtime
 Express — web server / routing
@@ -27,15 +27,15 @@ dotenv — loads .env config into process.env
 
 Papaparse — CSV parsing
 
-**Data source**
+**Data source:**
 
 Hermai API — turns NHTSA's Standing General Order (SGO) filings into a queryable API = backend calls it server-side with your key
 
-**Frontend**
+**Frontend:**
 
 Plain HTML/CSS/JavaScript
 
-**Data/config files**
+**Data/config files:**
 
 data/cityGeocode.json — static city → lat/lng lookup table
 
@@ -43,14 +43,14 @@ lib/operatorMap.js — maps vehicle Operating/Reporting Entity to operator names
 
 .env — holds HERMAI_API_KEY, HERMAI_SOURCE_SITE, HERMAI_SOURCE_ENDPOINT, CRON_SECRET
 
-**Hosting / infra**
+**Hosting / infra:**
 
 Vercel — hosting, serverless function deployment of the Express app, and Vercel Cron for the scheduled daily refresh (vercel.json)
 
 Git/GitHub — version control and the source Vercel deploys from
 
 
-**Project structure**
+**Project structure:**
 
 ```
 server.js               Express app + /api/crashes route
