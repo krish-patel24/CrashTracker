@@ -20,8 +20,7 @@ npm start
 
 **Backend**
 
-Node.js — runtime
-
+Node.js — runtime \n
 Express — web server / routing
 
 dotenv — loads .env config into process.env
