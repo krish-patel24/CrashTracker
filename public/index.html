@@ -9,58 +9,120 @@
 </head>
 <body>
 
-<div id="mobileToggle" class="mobile-toggle">
-  <button class="mobile-toggle-btn active" data-view="list">List</button>
-  <button class="mobile-toggle-btn" data-view="map">Map</button>
-</div>
+<section id="hero">
+  <svg class="hero-bg-art" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <pattern id="mapGrid" width="70" height="70" patternUnits="userSpaceOnUse">
+        <path d="M 70 0 L 0 0 0 70" fill="none" stroke="currentColor" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect width="1000" height="400" fill="url(#mapGrid)" />
+    <path d="M10,320 C130,260 220,340 340,230 S 560,140 680,210 S 900,120 990,160"
+          fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="2 10" stroke-linecap="round" />
+    <circle cx="10" cy="320" r="6" fill="currentColor" />
+    <circle cx="340" cy="230" r="6" fill="currentColor" />
+    <circle cx="680" cy="210" r="6" fill="currentColor" />
+    <circle cx="990" cy="160" r="6" fill="currentColor" />
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-number"><span id="heroCount">—</span> ROBOTAXI CRASH REPORTS</div>
+    <div class="hero-caveat">That does not mean <span id="heroCount2">—</span> crashes <i>caused by</i> robotaxis. Read what actually happened below.</div>
+    <div class="hero-source">Sourced from NHTSA Standing General Order filings, California, 2026 · <a href="https://hermai.ai" target="_blank" rel="noopener">via hermai</a></div>
+  </div>
+</section>
 
-<div id="sidebar">
-  <div class="brand">
-    <div class="brand-left">
-      <div class="brand-icon">🚕</div>
-      <div>
-        <div class="brand-title">CrashTracker</div>
-        <div class="brand-sub">CALIFORNIA · NHTSA SGO REPORTS</div>
-        <a href="https://hermai.ai" target="_blank" rel="noopener" class="powered-badge">POWERED BY HERMAI</a>
+<section id="stories">
+  <div class="stories-inner">
+    <h2>You would never guess these count as robotaxi crashes</h2>
+    <p class="stories-sub">NHTSA requires a report any time an autonomous vehicle is involved in a crash, even when the "crash" is a loose object in the road and the vehicle was barely moving. These are real filings, low severity, no injuries.</p>
+    <p class="stories-sub">Reported times are rounded, and redacted street names may appear as [XXX].</p>
+    <div id="storyCard" class="story-card">
+      <div class="story-loading">Loading a report…</div>
+    </div>
+    <div class="story-actions">
+      <button id="anotherStoryBtn" class="btn-primary">Show me another report</button>
+      <button id="shareStoryBtn" class="btn-secondary">Share this report</button>
+    </div>
+    <div class="stories-footnote">Looking for the serious incidents — injuries, pedestrians, property damage involved? <a href="#dashboard" id="seriousLink">See the full, unfiltered report list</a></div>
+  </div>
+</section>
+
+<section id="dashboard">
+  <div id="mobileToggle" class="mobile-toggle">
+    <button class="mobile-toggle-btn active" data-view="list">List</button>
+    <button class="mobile-toggle-btn" data-view="map">Map</button>
+  </div>
+
+  <div id="sidebar">
+    <div class="brand">
+      <div class="brand-left">
+        <div class="brand-icon">🚕</div>
+        <div>
+          <div class="brand-title">CrashTracker</div>
+          <div class="brand-sub">CALIFORNIA · NHTSA SGO REPORTS</div>
+          <a href="https://hermai.ai" target="_blank" rel="noopener" class="powered-badge">POWERED BY HERMAI</a>
+        </div>
+      </div>
+      <div class="live-badge"><span class="live-dot"></span>AS FILED</div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <span>🔎</span>
+        <input id="searchInput" placeholder="Search by operator, city, report ID..." />
+      </div>
+      <button id="seriousFilterBtn" class="filter-chip">Serious incidents only</button>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" id="tabCrashes" data-tab="crashes">Crashes <span class="count" id="crashCount">0</span></div>
+      <div class="tab" id="tabLeaderboard" data-tab="leaderboard">Leaderboard</div>
+    </div>
+
+    <div id="crashesView">
+      <div class="list-header" id="listHeader">Loading…</div>
+      <div class="list" id="crashList"></div>
+    </div>
+
+    <div id="leaderboardView" class="hidden">
+      <div class="list-header">CRASHES BY OPERATOR — SHARE OF REPORTS, NOT A SAFETY RANKING</div>
+      <div id="leaderList"></div>
+    </div>
+
+    <div class="footer">
+      Reports are filed with NHTSA monthly, not real-time — this page updates when new filings post.
+      City and month/year are reported by NHTSA; exact street addresses and the specific day are redacted at the source.
+      Reported times are rounded, and street names inside narratives may appear as [XXX]. Map bubbles show approximate
+      city locations, not exact crash sites — grouped per city rather than pinned individually, since NHTSA doesn't
+      report precise coordinates. Coverage shown here is <b>California</b> only.
+    </div>
+  </div>
+
+  <div id="map">
+    <div class="map-badge"><span id="mapCount">0</span><span> reports on map (approx. locations)</span></div>
+    <div id="detailPanel" class="detail-panel hidden"></div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="stats-inner">
+    <h2>Surprising Stories</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number" id="statStopped">—%</div>
+        <div class="stat-label">of reports involved a stopped or parked vehicle</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="statMetro">—%</div>
+        <div class="stat-label">of reports are from San Francisco or Los Angeles</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="statWaymo">—%</div>
+        <div class="stat-label">of reports name Waymo <span class="stat-caveat">(share of reports, not a safety ranking — Waymo also operates the most vehicles)</span></div>
       </div>
     </div>
-    <div class="live-badge"><span class="live-dot"></span>AS FILED</div>
   </div>
-
-  <div class="search-wrap">
-    <div class="search-box">
-      <span>🔎</span>
-      <input id="searchInput" placeholder="Search by operator, city, report ID..." />
-    </div>
-  </div>
-
-  <div class="tabs">
-    <div class="tab active" id="tabCrashes" data-tab="crashes">Crashes <span class="count" id="crashCount">0</span></div>
-    <div class="tab" id="tabLeaderboard" data-tab="leaderboard">Leaderboard</div>
-  </div>
-
-  <div id="crashesView">
-    <div class="list-header" id="listHeader">Loading…</div>
-    <div class="list" id="crashList"></div>
-  </div>
-
-  <div id="leaderboardView" class="hidden">
-    <div class="list-header">CRASHES BY OPERATOR</div>
-    <div id="leaderList"></div>
-  </div>
-
-  <div class="footer">
-    Reports are filed with NHTSA monthly, not real-time — this page updates when new filings post.
-    City and month/year are reported by NHTSA; exact street addresses and the specific day are redacted at the source.
-    Reported times are rounded, and street names inside narratives may appear as [XXX]. Map pins show approximate city
-    locations, not exact crash sites. Coverage shown here is <b>California</b> only.
-  </div>
-</div>
-
-<div id="map">
-  <div class="map-badge"><span id="mapCount">0</span><span> crashes on map (approx. locations)</span></div>
-  <div id="detailPanel" class="detail-panel hidden"></div>
-</div>
+</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="app.js"></script>

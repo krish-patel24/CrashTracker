@@ -14,7 +14,7 @@ app.get('/api/crashes', async (req, res) => {
   try {
     const force = req.query.refresh === 'true';
     const data = await fetchCrashes({ force });
-    res.json({ crashes: data, meta: getCacheMeta() });
+    res.json({ crashes: data, meta: await getCacheMeta() });
   } catch (err) {
     console.error('Failed to fetch crash data:', err.message);
     res.status(502).json({ error: 'Unable to fetch crash data', detail: err.message });
@@ -39,7 +39,7 @@ app.get('/api/cron/refresh', async (req, res) => {
   }
   try {
     const data = await fetchCrashes({ force: true });
-    res.json({ refreshed: true, meta: getCacheMeta(), count: data.length });
+    res.json({ refreshed: true, meta: await getCacheMeta(), count: data.length });
   } catch (err) {
     console.error('Scheduled refresh failed:', err.message);
     res.status(502).json({ error: 'Refresh failed', detail: err.message });
