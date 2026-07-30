@@ -86,7 +86,7 @@ function renderHero() {
 
 // ---------- Notable stories ----------
 function getNotableStories() {
-  return crashes.filter(c => c.story === 'notable');
+  return crashes.filter(c => c.featuredHeadline);
 }
 
 function showRandomStory() {
@@ -112,7 +112,7 @@ function showRandomStory() {
 function renderStoryCard(c) {
   const card = document.getElementById('storyCard');
   card.innerHTML = `
-    <div class="story-headline">${escapeHtml(c.headline)}</div>
+    <div class="story-headline">${escapeHtml(c.featuredHeadline)}</div>
     <div class="story-meta">
       <span>📍 ${escapeHtml(c.city)}</span>
       <span>🗓 ${escapeHtml(c.date)}</span>
@@ -125,7 +125,7 @@ function renderStoryCard(c) {
 
 async function shareStory() {
   if (!currentStory) return;
-  const text = `${currentStory.headline} — ${currentStory.city}, ${currentStory.date} (Report ${currentStory.id})`;
+  const text = `${currentStory.featuredHeadline} — ${currentStory.city}, ${currentStory.date} (Report ${currentStory.id})`;
   const url = `${location.origin}${location.pathname}#report-${encodeURIComponent(currentStory.id)}`;
   if (navigator.share) {
     try { await navigator.share({ title: 'CrashTracker report', text, url }); return; } catch (e) { /* user cancelled — fall through */ }
@@ -340,7 +340,10 @@ function renderStats() {
   const stopped = crashes.filter(c => c.stoppedOrParked).length;
   document.getElementById('statStopped').textContent = `${Math.round((stopped / total) * 100)}%`;
 
-  const metro = crashes.filter(c => /san francisco|los angeles/i.test(c.city || '')).length;
+  const metro = crashes.filter(c => {
+    const cityName = (c.city || '').split(',')[0].trim().toLowerCase();
+    return cityName === 'san francisco' || cityName === 'los angeles';
+  }).length;
   document.getElementById('statMetro').textContent = `${Math.round((metro / total) * 100)}%`;
 
   const waymo = crashes.filter(c => (c.operator || '').toLowerCase() === 'waymo').length;
