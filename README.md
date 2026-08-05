@@ -21,6 +21,7 @@ npm start
 **Backend:**
 
 Node.js — runtime
+
 Express — web server / routing
 
 dotenv — loads .env config into process.env
@@ -29,7 +30,7 @@ Papaparse — CSV parsing
 
 **Data source:**
 
-Hermai API — turns NHTSA's Standing General Order (SGO) filings into a queryable API = backend calls it server-side with your key
+Hermai API — turns NHTSA's Standing General Order (SGO) filings into a queryable API
 
 **Frontend:**
 
@@ -45,9 +46,9 @@ lib/operatorMap.js — maps vehicle Operating/Reporting Entity to operator names
 
 **Hosting / infra:**
 
-Vercel — hosting, serverless function deployment of the Express app, and Vercel Cron for the scheduled daily refresh (vercel.json)
+Vercel
 
-Git/GitHub — version control and the source Vercel deploys from
+Git/GitHub
 
 
 **Project structure:**
